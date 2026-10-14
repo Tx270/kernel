@@ -1,4 +1,6 @@
 #include "../include/keyboard.h"
+#include "../include/terminal.h"
+#include "../include/colors.h"
 
 static const char scancode_table[128] = {
     [0x02] = '1', [0x03] = '2', [0x04] = '3',
@@ -42,7 +44,7 @@ void gets(char* buf, int count, int pos)
         if (scancode == 0x0E) {
             if (i > 0) {
                 i--;
-                putc(' ', 0x0F, pos + i);
+                putc(' ', COLOR_DEFAULT, pos + i);
             }
             continue;
         }
@@ -51,10 +53,11 @@ void gets(char* buf, int count, int pos)
 
         if (c) {
             buf[i] = c;
-            putc(c, 0x0F, pos + i);
+            putc(c, COLOR_DEFAULT, pos + i);
             i++;
         }
     }
 
     buf[i] = '\0';
+    terminalCol++;
 }

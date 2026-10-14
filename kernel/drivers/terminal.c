@@ -1,6 +1,7 @@
 #include "../include/terminal.h"
 
 volatile uint16_t *vga = (volatile uint16_t *)0xB8000;
+volatile uint8_t terminalCol = 1;
 
 void putc(char character, uint16_t color, int pos)
 {

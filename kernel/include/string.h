@@ -2,6 +2,9 @@
 #include "types.h"
 
 void* memcpy(void* dst, const void* src, uint32_t n);
+int strlen(const char* s);
+int strcmp(char* s01, char* s02);
+bool streq(char* s0, char* s1);
 
 #define memset_t(dst, type, val, count) \
     do { \

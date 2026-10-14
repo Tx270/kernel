@@ -5,6 +5,6 @@ typedef signed char     int8_t;
 typedef signed short    int16_t;
 typedef signed long     int32_t;
 
-#define bool   _Bool
+#define bool   int
 #define true   1
 #define false  0
