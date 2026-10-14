@@ -3,6 +3,7 @@
 #include "../include/io.h"
 #include "../include/terminal.h"
 #include "../include/colors.h"
+#include "../include/rtc.h"
 
 
 static void quit(void)
@@ -25,10 +26,26 @@ static void clear(void)
 static void help(void)
 {
     puts("Available commands:", COLOR_INFO, terminalCol++ * 80);
-    puts("  exit  - Shut down the system", COLOR_DEFAULT, terminalCol++ * 80);
+    puts("  die   - Shut down the system", COLOR_DEFAULT, terminalCol++ * 80);
     puts("  clear - Clear the screen", COLOR_DEFAULT, terminalCol++ * 80);
     puts("  greet - Display the system name", COLOR_DEFAULT, terminalCol++ * 80);
     puts("  help  - List available commands", COLOR_DEFAULT, terminalCol++ * 80);
+    puts("  time  - Get current time according to mr Sebastian", COLOR_DEFAULT, terminalCol++ * 80);
+}
+
+static void time(void)
+{
+    RTCDateTime time;
+    rtc_read(&time);
+
+    char buffer[3];
+
+    buffer[0] = '0' + time.hour / 10;
+    buffer[1] = '0' + time.hour % 10;
+    buffer[2] = '\0';
+
+    puts("Hour: ", 0x0F, terminalCol * 80);
+    puts(buffer, 0x0F, terminalCol * 80 + 6);
 }
 
 typedef void (*command_fn)(void);
@@ -39,10 +56,11 @@ typedef struct {
 } ShellCommand;
 
 static const ShellCommand commands[] = {
-    { "exit",  quit  },
+    { "die",  quit  },
     { "clear", clear },
     { "greet", greet },
     { "help",  help  },
+    { "time",  time  },
 };
 
 void shell_command(char command[])

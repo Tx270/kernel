@@ -34,6 +34,7 @@ set(KERNEL_SOURCES
     kernel/drivers/keyboard.c
     kernel/lib/string.c
     kernel/shell/shell.c
+    kernel/drivers/rtc.c
     kernel_entry.asm
 )
 
